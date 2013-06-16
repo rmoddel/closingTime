@@ -7,8 +7,8 @@
 <body>
     <div id="search_area">
         <div id="inner">
-            <form action='maptestnew.php' method='POST'>
-            <input type="text" name='zipcode' placeholder="Enter a location" id='location_field' class="location_field push_4">
+            <form action='yp-info.php' method='POST'>
+            <input type="text" id='zip' name='zipcode' placeholder="Enter a location" class="location_field push_4">
             <input type="button" value="Submit" class="push_4" id="submit">
             </form>
         </div>
@@ -18,7 +18,7 @@
         <div id="category_list"> <span class="category" id="food">Food</span>
  <span class="category" id="health_home">Health and Home</span>
  <span class="category" id="finance">Finance</span>
- <span class="category" id="auto_and_gas">Auto and Gas</span>
+ <span class="category" id="gas">Auto and Gas</span>
  <span class="category" id="retail">Retail</span>
 
         </div>
@@ -30,16 +30,29 @@
         </div>
         <div class="grid_5" id="info_panel"></div>
     </div>
-    <div id="footer">Closing Time 2013, Yehuda Schonfeld</div>
+    <div id="footer">Closing Time 2013, Yehuda Schonfeld | Reuben Moddel </div>
     <div class="clear"></div>
 
 <script>
 
+//Redirect the enter button:
+
+//Bind this keypress function to all of the input tags
+$("input").keypress(function (evt) {
+//Deterime where our character code is coming from within the event
+          var charCode = evt.charCode || evt.keyCode;
+                  if (charCode  == 13) { //Enter key's keycode
+                  $('#submit').trigger('click');
+                  return false;
+                    }
+      });
+
+//Click Submit to see a sample result
 $("#submit").click(function(){
 $('#result_tab').empty();
 });
                 $("#submit").click(function(){
-     $(function()             {$.getJSON('json-data.php', function(data) {
+     $(function()             {$.getJSON('json-data.php',{category: $('.location_field').val()}, function(data) {
                    $(data).each(function(k,v){        
                          $('<img>',{
                            title:v.title,
@@ -51,85 +64,23 @@ $('#result_tab').empty();
                                });
                         });   
 
+// Click a category
 
-//get auto data
-            
-            $("#auto_and_gas").click(function(){
-$('#result_tab').empty();
+//Clear the result_tab
+$('.category').click(function(){
+        $('#result_tab').empty();
 });
-                $("#auto_and_gas").click(function(){
-     $(function()             {$.getJSON('json-auto.php',$('#location_field').val(), function(data) {
-                   $(data).each(function(k,v){        
-                         $('<img>',{
-                           title:v.title,
-                           src:v.img
-                                   }).appendTo($('#result_tab'));
 
-                                             })
-                                     });
-                               });
-                        });
-
-//get food data
-            
-$("#food").click(function(){
-$('#result_tab').empty();
+//get any data
+    $('.category').click(function(){
+       var id = $(this).attr('id'),
+               zip = $('#zip').val();
+       $.getJSON('curl-test.php',{category:id,zip:zip},function(data){
+               console.log(data.results);
+       });
 });
-            
-                $("#food").click(function(){
-     $(function(){$.getJSON('json-food.php', function(data) {
-                   $(data).each(function(k,v){        
-                         $('<img>',{
-                           title:v.title,
-                           src:v.img
-                                   }).appendTo($('#result_tab'));
-
-                                             })
-                                        });
-                                   });
-                             });
-
-
-//get House and Home data
-            
-$("#retail").click(function(){
-$('#result_tab').empty();
-});
-            
-                $("#retail").click(function(){
-     $(function(){$.getJSON('json-retail.php', function(data) {
-                   $(data).each(function(k,v){        
-                         $('<img>',{
-                           title:v.title,
-                           src:v.img
-                                   }).appendTo($('#result_tab'));
-
-                                             })
-                                        });
-                                   });
-                             });
-
-//get inance data
-            
-$("#finance").click(function(){
-$('#result_tab').empty();
-});
-            
-                $("#finance").click(function(){
-     $(function(){$.getJSON('json-finance.php', function(data) {
-                   $(data).each(function(k,v){        
-                         $('<img>',{
-                           title:v.title,
-                           src:v.img
-                                   }).appendTo($('#result_tab'));
-
-                                             })
-                                        });
-                                   });
-                             });
 
 </script>
 
- 
 </body>
-</html>
+</html>	
