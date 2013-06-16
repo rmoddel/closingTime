@@ -4,16 +4,12 @@ include 'class.geodata.inc.php';
 
 $lookup = new EyeGeoData();
 
-
-
 // DELETE '('08701');    //' to exit test mode
 $array  = $lookup->query('08701');    //($_POST['zip']);
-
 
 $latitude = "{$array['Coordinates']['Latitude']}";
 
 $longitude = "{$array['Coordinates']['Longitude']}";
-
 
 // DELETE' 'food'; //' to exit test mode
 $category = 'food'; //$_POST['category'];
@@ -37,5 +33,4 @@ if ($test === FALSE) {
 curl_close($curl_object);
 
 echo $test;
-
 ?>
