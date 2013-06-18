@@ -24,8 +24,8 @@ curl_close($curl_object);
 //var_dump($test);
 
 $list = json_decode($test, TRUE);
-    //$business_name = $list['results'][0]['name'];
-  
+//$business_name = $list['results'][0]['name'];
+   
 echo "<br />".$business_name;
 
 $store_name = array();
@@ -36,14 +36,17 @@ if (is_array($valu))
 {
    foreach ($valu as $value){
 
-$store_name[] = $value['name'];
-//print $value['name'];
+         $store_name[$i]['name'] = $value['name'];
+         $store_name[$i]['address'] = $value['formatted_address'];
+         $i++;
+               }
 
-                     }
-
-            }
-}
+       }
+} 
 
 print_r($store_name);
 
 ?>
+
+
+  
