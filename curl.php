@@ -7,7 +7,8 @@ $place = ($_POST['zip']);
 
 $key = 'AIzaSyD8sA6gMVZxIuKMOLvUPqa6pvlW_vF1PPo';
 
-$url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=gas_station+lakewood+NJ&sensor=true&key=AIzaSyD8sA6gMVZxIuKMOLvUPqa6pvlW_vF1PPo';
+//$url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=gas_station+lakewood+NJ&sensor=true&key=AIzaSyD8sA6gMVZxIuKMOLvUPqa6pvlW_vF1PPo';
+$url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=clothing+lakewood+NJ&sensor=true&key=AIzaSyD8sA6gMVZxIuKMOLvUPqa6pvlW_vF1PPo';
 
 $curl_object = curl_init($url);
 curl_setopt($curl_object, CURLOPT_URL, $url);
@@ -38,6 +39,9 @@ if (is_array($valu))
 
          $store_name[$i]['name'] = $value['name'];
          $store_name[$i]['address'] = $value['formatted_address'];
+         $store_name[$i]['reference'] = $value['reference'];
+         $store_name[$i]['open'] = $value['opening_hours']['open_now']; 
+         
          $i++;
                }
 
