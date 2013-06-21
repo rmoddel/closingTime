@@ -24,7 +24,7 @@ if ($test === FALSE) {
 curl_close($curl_object);
 //var_dump($test);
 
-//$list = json_decode($test, TRUE);
+//$list = json_decode($val, TRUE);
 //$business_name = $list['results'][0]['name'];
    
 echo "<br />".$business_name;
@@ -42,13 +42,19 @@ RecursiveIteratorIterator::SELF_FIRST);
 foreach ($jsonIterator as $key => $val) { 
    	
 			if(is_array($val)) { 
-			echo "$key:\n"; } else { 
-			echo "$key => $val\n"; 
+	                        	if (in_array("debug_info", $val)) {
+         $store_name[$i]['open'] = $val['opening_hours']; 
+         //$store_name[$i]['periods'] = $val['opening_hours']['periods'];
+         //$store_name[$i]['close_day'] = $val['opening_hours']['periods']['close']['day'];
+         //$store_name[$i]['close_time'] = $val['opening_hours']['periods']['close'];
+         $i++;			
+			}else { 
+			//echo "$key => $val\n"; 
 			
 				} 
-			
-			}
+}
 
+}
 
 /*
 //Looks like this array extraction function just got booted by the RecursiveArrayIterator
@@ -68,7 +74,10 @@ if (is_array($valu))
          //$store_name[$i]['close_day'] = $value['opening_hours']['periods']['close']['day'];
          //$store_name[$i]['close_time'] = $value['opening_hours']['periods']['close'];
          $i++;
-               }
+               }else { 
+			echo " "; 
+			
+				} 
 
        }
 } 
