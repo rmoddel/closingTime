@@ -1,5 +1,6 @@
 <?php
 
+//category and zip POSTs will be coming from the main site
 // Note: DELETE ' 'food'; //' to exit test mode
 $category = $_POST['category'];
 
@@ -23,7 +24,7 @@ if ($test === FALSE) {
 curl_close($curl_object);
 //var_dump($test);
 
-$list = json_decode($test, TRUE);
+//$list = json_decode($test, TRUE);
 //$business_name = $list['results'][0]['name'];
    
 echo "<br />".$business_name;
@@ -31,6 +32,26 @@ echo "<br />".$business_name;
 $store_name = array();
 
 $i = 0;
+
+$jsonIterator = new RecursiveIteratorIterator( new 
+
+RecursiveArrayIterator(json_decode($test, TRUE)), 
+
+RecursiveIteratorIterator::SELF_FIRST); 
+
+foreach ($jsonIterator as $key => $val) { 
+   	
+			if(is_array($val)) { 
+			echo "$key:\n"; } else { 
+			echo "$key => $val\n"; 
+			
+				} 
+			
+			}
+
+
+/*
+//Looks like this array extraction function just got booted by the RecursiveArrayIterator
 foreach($list as $valu){
 if (is_array($valu))
 {
@@ -51,8 +72,8 @@ if (is_array($valu))
 
        }
 } 
-
-/*{
+//This is the JSON output of the API request 
+{
    "debug_info" : [],
    "html_attributions" : [],
    "result" : {
