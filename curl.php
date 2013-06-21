@@ -32,24 +32,35 @@ echo "<br />".$business_name;
 $store_name = array();
 
 $i = 0;
+
+$jsonIterator = new RecursiveIteratorIterator( new 
+
+RecursiveArrayIterator(json_decode($test, TRUE)), 
+
+RecursiveIteratorIterator::SELF_FIRST); 
+
+foreach ($jsonIterator as $key => $val) { 
+		
+			if(is_array($val)) { 
+			echo "$key:\n"; } else { 
+			echo "$key => $val\n"; } }
+
+
+/*
 foreach($list as $valu){
 if (is_array($valu))
 {
-   foreach ($valu as $value){
-
+     foreach ($valu as $value){
          $store_name[$i]['name'] = $value['name'];
          $store_name[$i]['address'] = $value['formatted_address'];
          $store_name[$i]['reference'] = $value['reference'];
-         $store_name[$i]['open'] = $value['opening_hours']['open_now']; 
-         
+         $store_name[$i]['open'] = $value['opening_hours']['open_now'];         
          $i++;
                }
-
-       }
+      }
 } 
-
 print_r($store_name);
-
+*/
 ?>
 
 
