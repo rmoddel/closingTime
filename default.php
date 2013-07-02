@@ -153,16 +153,15 @@ $('.category').click(function(){
 /////////////////*******************///////////////
 //Week div Slider controls:
 $(document).ready(function () {
-    $('.day').on('click', null, function () {
+    $('.day').click(function () {
         var me = $(this);
-       $('#slide_me_down').slideUp();
-        if(me.hasClass('active')){
-            $(this).removeClass('active');
+       if(me.hasClass('active')){
+       		$('#slide_me_down').slideUp();
+        	$(this).removeClass('active');
         }else{
-            $('#slide_me_down').slideDown('fast',function(){
-                $(this).html(me.text());
-            });
-             $(this).addClass('active'); 
+            $('.active').removeClass('active');	
+            $(this).addClass('active'); 
+            $('#slide_me_down')'.html(me.text());
         }
        
     }); 
